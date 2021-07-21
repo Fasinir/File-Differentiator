@@ -13,6 +13,9 @@ public class FileExtension {
     private int minMagicLength;
     private final static int DUMMY_CHARACTER=-1;
 
+    /*
+    This class contains values for a file extension like name, offset and magic codes that match with that extension
+     */
     public FileExtension(String name, int offset, int[][] magicCodes)
     {
         this.name=name;

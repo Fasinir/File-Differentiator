@@ -2,8 +2,7 @@ import java.io.*;
 import java.util.Arrays;
 
 public class mainVoid {
-    public static void main(String[] args)
-    {
+    public static void main(String[] args) throws Exception {
 
         /*
         try
@@ -38,18 +37,27 @@ public class mainVoid {
                         });
         //System.out.println(Arrays.deepToString(gifObj.getMagicCodes()));
         //System.out.println(Arrays.deepToString(jpgObj.getMagicCodes()));
+        /*
         try
         {
             File file = new File("examples/jpg1.jpg");
             File file2= new File("examples/jpg2.jpg");
+            File file3= new File("examples/gif1.gif");
 
             System.out.println(jpgObj.fileMatchesExtension(file));
             System.out.println(jpgObj.fileMatchesExtension(file2));
             System.out.println(gifObj.fileMatchesExtension(file));
             System.out.println(gifObj.fileMatchesExtension(file2));
+            System.out.println(gifObj.fileMatchesExtension(file3));
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+         */
+        FileDifferentiator fd= new FileDifferentiator();
+        fd.addFileExtension(jpgObj);
+        fd.addFileExtension(gifObj);
+        fd.checkFiles(args);
     }
 
     //helper function for testing
