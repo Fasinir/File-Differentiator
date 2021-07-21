@@ -1,7 +1,4 @@
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -31,7 +28,7 @@ public class FileDifferentiator {
         {
             return "txt";
         }
-        throw new Exception("Could not find matching extension for this file");
+        throw new Exception("Could not find matching extension for this file "+filePath);
     }
 
     //there is no clear way of checking whether a file is really a text file
@@ -68,10 +65,41 @@ public class FileDifferentiator {
                 }
                 else
                 {
-                    System.out.println(arg+"has extension "+extension+" while actually it's a "+matchedExtension);
+                    System.out.println(arg+" has extension "+extension+" while actually it's a "+matchedExtension);
                 }
 
             }
+        }
+    }
+    public void parseExtensionsFromFile(String filePath) throws Exception {
+        File file=new File(filePath);
+
+        BufferedReader br = new BufferedReader(new FileReader(file));
+
+        String line;
+        while ((line=br.readLine())!=null)
+        {
+            String name=line;
+            if ((line=br.readLine())==null)
+            {
+                throw new Exception("Bad parsing");
+            }
+            int offset= Integer.parseInt(line);
+            if ((line=br.readLine())==null)
+            {
+                throw new Exception("Bad parsing");
+            }
+            int numberOfCodes=Integer.parseInt(line);
+            String[][] magicCodes=new String[numberOfCodes][];
+            for (int i=0;i<numberOfCodes;i++)
+            {
+                if ((line=br.readLine())==null)
+                {
+                    throw new Exception("Bad parsing");
+                }
+                magicCodes[i]=line.split(" ");
+            }
+            addFileExtension(new FileExtension(name,offset,magicCodes));
         }
     }
 }
